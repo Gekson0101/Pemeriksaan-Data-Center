@@ -327,3 +327,37 @@
 .phone-list .parameter-group>header h3 {line-height:1.5}
 @media (max-width:650px) {.phone-list .parameter-group .parameter-assets {grid-template-columns:1fr}}
 @media screen {[data-theme="dark"] .phone-list .parameter-group .check-card {background:#192b23}}
+
+/* Compact inspection: category > parameter > independent asset answers. */
+.fold-toolbar {display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:16px 0}
+.fold-toolbar p {margin:0;color:var(--muted);font-size:13px}
+.fold-toolbar .btn {min-height:44px}
+.phone-list .inspection-category {margin:0 0 12px}
+.phone-list .inspection-fold>summary {display:flex;align-items:flex-start;gap:12px;min-height:60px;padding:16px;list-style:none;cursor:pointer;touch-action:manipulation}
+.phone-list .inspection-fold>summary::-webkit-details-marker {display:none}
+.phone-list .inspection-fold>summary::after {content:none}
+.phone-list .inspection-fold>summary:focus-visible {outline:3px solid #4a93db;outline-offset:3px}
+.phone-list .inspection-fold>.category-heading {margin:0;background:#123c36;color:#fff;border-radius:12px}
+.fold-copy {display:flex;flex-direction:column;gap:5px;min-width:0;flex:1}
+.fold-title {font-size:16px;line-height:1.5;font-weight:650;overflow-wrap:anywhere}
+.category-heading .fold-title {font-size:18px}
+.fold-meta,.fold-progress {font-size:12px;line-height:1.5;font-weight:500;color:#47665b}
+.category-heading .fold-meta,.category-heading .fold-progress {color:#e0eee6}
+.fold-arrow {display:inline-grid;place-items:center;flex:none;width:24px;height:26px;font-size:30px;line-height:1;transform:rotate(0deg);transition:transform .15s ease}
+.inspection-fold[open]>summary>.fold-arrow {transform:rotate(90deg)}
+.category-parameters {padding:10px 0 0 12px;border-left:2px solid #b9cec3;margin-left:14px}
+.phone-list .parameter-group {margin:0 0 10px;border:1px solid #cbd9d2;border-radius:12px;overflow:hidden}
+.phone-list .parameter-group>summary {background:#e7f1eb;color:#173e35}
+.phone-list .parameter-group[open]>summary {border-bottom:1px solid var(--line)}
+@media screen {
+  [data-theme="dark"] .phone-list .parameter-group>summary {background:#233f32;color:#f0f7f2}
+  [data-theme="dark"] .fold-progress,[data-theme="dark"] .fold-meta {color:#d0e5d8}
+  [data-theme="dark"] .category-parameters {border-color:#42634f}
+}
+@media (max-width:650px) {
+  .category-parameters {margin-left:8px;padding-left:8px}
+  .phone-list .inspection-fold>summary {padding:14px 12px;gap:8px}
+  .fold-toolbar .button-row {width:100%}
+  .fold-toolbar .btn {flex:1}
+}
+@media (prefers-reduced-motion:reduce) {.fold-arrow {transition:none}}
