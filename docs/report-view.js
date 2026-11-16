@@ -83,9 +83,9 @@
       </table></section>`;
     }).join('')).join('');
     return `<article class="report-preview structured-report">
-      <header class="report-cover"><div class="report-brand">DC Inspect</div>
+      <header class="report-cover"><img class="report-logo" src="${e(root.DCIBranding.logoUrl)}" alt="Logo Pusdatik BSSN" width="96" height="96" loading="eager"><div class="report-heading"><div class="report-brand">PUSDATIK BSSN</div>
         <h2 class="report-title">FORMULIR MONITORING ${e((D.periods[session.period]||session.period).toUpperCase())} DATA CENTER</h2>
-        <p class="report-subtitle">${e(session.site||'Pusat data')} · ${e(date(session.date))}</p></header>
+        <p class="report-subtitle">${e(session.site||'Pusat data')} · ${e(date(session.date))}</p></div></header>
       <dl class="report-metadata">${fields.map(([name,value])=>`<div><dt>${e(name)}</dt><dd>${e(value)}</dd></div>`).join('')}</dl>
       <div class="report-counts">${counts.map(([name,count,kind])=>`<span class="count-${kind}"><strong>${count}</strong> ${e(name)}</span>`).join('')}</div>
       ${tables}

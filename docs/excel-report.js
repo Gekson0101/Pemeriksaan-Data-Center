@@ -79,7 +79,7 @@
       headerFooter:{oddFooter:'&LDC Inspect&CHalaman &P dari &N'}
     });
     sheet.columns=widths.map(width=>({width}));
-    sheet.views=[{showGridLines:false,state:'frozen',ySplit:10}];
+    sheet.views=[{showGridLines:false,state:'frozen',ySplit:12}];
     const border={style:'thin',color:{argb:colors.line}};
     function add(values,height=24) {
       const row=sheet.addRow(values.map(value=>value===''?null:value));row.height=height;
@@ -106,8 +106,27 @@
     }
     const rows=session.rows||[],metrics=C.metrics(rows);
     const photoCount=rows.reduce((total,row)=>total+(row.evidence?.length||0),0);
-    const title=band(`FORMULIR MONITORING ${period.toUpperCase()} DATA CENTER`,colors.navy,36);
-    title.getCell(1).alignment={vertical:"middle",horizontal:"center",wrapText:true};
+    const logo=await root.DCIBranding.excelLogo();
+    const letterhead=[['PUSDATIK BSSN',24,12],
+      [`FORMULIR MONITORING ${period.toUpperCase()} DATA CENTER`,36,14],
+      [`${session.site||'Pusat data'} · ${dateText(session.date)}`,24,11]];
+    for(const [text,height,size] of letterhead) {
+      const row=add(['','',text],height);
+      sheet.mergeCells(row.number,3,row.number,7);
+      const cell=row.getCell(3);
+      cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:colors.navy}};
+      cell.font={name:'Calibri',size,bold:row.number<3,color:{argb:row.number===3?'C1E8FF':'FFFFFF'}};
+      cell.alignment={vertical:'middle',horizontal:'center',wrapText:true};
+    }
+    sheet.mergeCells('A1:B3');
+    const logoId=workbook.addImage({base64:logo.base64,extension:logo.extension});
+    // Keep the original transparent canvas and aspect ratio; do not redraw the logo.
+    const logoWidth=160,logoHeight=logoWidth*logo.height/logo.width;
+    const logoTop=(letterhead.reduce((sum,line)=>sum+line[1],0)*4/3-logoHeight)/2;
+    sheet.addImage(logoId,{
+      tl:{nativeCol:0,nativeColOff:8*9525,nativeRow:0,nativeRowOff:Math.round(logoTop*9525)},
+      ext:{width:logoWidth,height:logoHeight},editAs:'absolute'
+    });
     metadata('Nomor laporan',session.number||'DRAF','Status',session.finalizedAt?'Final':'Draf');
     metadata('Hari / tanggal',dateText(session.date),'Periode',period);
     metadata('Petugas',session.inspector||'Belum diisi','Pusat data',session.site||'Belum diisi');
@@ -118,7 +137,7 @@
     band('TABEL CHECKLIST PEMERIKSAAN',colors.light,28);
     const headers=add(['No','Kode Aset','Nama Aset','Lokasi','Hasil','Keterangan Petugas / Hasil Ukur','Foto Bukti'],34);
     headers.eachCell(cell=>{cell.font={name:'Calibri',size:11,bold:true,color:{argb:'FFFFFF'}};cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:colors.navy}};cell.alignment={vertical:'middle',horizontal:'center',wrapText:true};});
-    sheet.pageSetup.printTitlesRow='9:10';
+    sheet.pageSetup.printTitlesRow='11:12';
     let number=0;
     for (const category of C.groupByCategory(rows)) {
       band(D.formalLabel(category.name),colors.navy);
