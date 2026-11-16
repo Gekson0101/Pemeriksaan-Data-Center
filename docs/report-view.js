@@ -89,7 +89,7 @@
       <dl class="report-metadata">${fields.map(([name,value])=>`<div><dt>${e(name)}</dt><dd>${e(value)}</dd></div>`).join('')}</dl>
       <div class="report-counts">${counts.map(([name,count,kind])=>`<span class="count-${kind}"><strong>${count}</strong> ${e(name)}</span>`).join('')}</div>
       ${tables}
-      <div class="signature"><div>Petugas pemeriksa<strong>${e(session.inspector||'________________')}</strong></div><div>Peninjau<strong>________________</strong></div></div>
+      <div class="signature"><div>Petugas pemeriksa<strong>${e(session.inspector||'________________')}</strong></div></div>
     </article>`;
   }
   async function preparePrint(session,target) {

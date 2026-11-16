@@ -235,6 +235,7 @@ html:root .structured-report .report-logo {
   margin:auto;
 }
 html:root .structured-report .report-heading {min-width:0}
+html:root .structured-report .signature {grid-template-columns:1fr;justify-items:center}
 html:root .structured-report :is(.report-brand,.report-title) {color:#ffffff}
 html:root .structured-report .report-subtitle {color:#c1e8ff}
 html:root .structured-report :is(.report-category-title,.report-columns th) {
