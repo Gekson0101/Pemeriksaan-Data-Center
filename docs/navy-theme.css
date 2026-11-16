@@ -267,3 +267,31 @@ html:root .structured-report .result-label.result-fail {background:#ac333c;color
     print-color-adjust: exact;
   }
 }
+
+/* Interaction motion: feedback without changing layout or result colors. */
+@media screen {
+  html[data-theme] :is(button,.photo-choices label) {
+    transition:transform 160ms ease,box-shadow 180ms ease,background-color 180ms ease,border-color 180ms ease,color 180ms ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  html[data-theme] button:not(:disabled):active,
+  html[data-theme] .photo-choices label:active {transform:scale(.97);transition-duration:80ms}
+  html[data-theme] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),textarea,select) {
+    transition:border-color 180ms ease,box-shadow 180ms ease,background-color 180ms ease;
+  }
+  html[data-theme] :is(input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),textarea,select):focus {
+    border-color:#5483b3;
+    box-shadow:0 0 0 4px #5483b326;
+  }
+  html[data-theme] button:focus-visible,
+  html[data-theme] .photo-choices label:focus-within {outline:3px solid #5483b3;outline-offset:3px}
+}
+@media screen and (hover:hover) and (pointer:fine) {
+  html[data-theme] button:not(:disabled):hover {transform:translateY(-1px)}
+  html[data-theme] button:not(:disabled):active {transform:translateY(0) scale(.97)}
+}
+@media screen and (prefers-reduced-motion:reduce) {
+  html[data-theme] :is(button,.photo-choices label,input,textarea,select) {transition:none!important;animation:none!important}
+  html[data-theme] button:not(:disabled):is(:hover,:active),
+  html[data-theme] .photo-choices label:active {transform:none!important}
+}
