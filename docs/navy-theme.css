@@ -127,5 +127,40 @@
   html[data-theme] .structured-report :is(th,td) {border-color: var(--line)}
   @media (max-width:650px) {
     html[data-theme] .nav-btn.active {box-shadow: inset 0 -3px #c1e8ff}
+    html[data-theme] .page-head .eyebrow {display:block;font-size:11px;line-height:1.5}
   }
+
+  /* Dark mode changes the canvas; content cards remain white and readable. */
+  html[data-theme="dark"] :is(.topbar,.stat,.period-card,.panel,.inspection-summary,.asset-group,.report-preview,.source-card,.history-report,.modal,.check-card,.sticky-actions,.notice,.empty) {
+    --ink: #102b4c;
+    --muted: #486280;
+    --line: #cbd9e9;
+    --green: #052659;
+    --light: #e5f1fc;
+    --surface: #ffffff;
+    --surface-soft: #eaf3fc;
+    --surface-hover: #dcecff;
+    --control-line: #7da0ca;
+    --primary-bg: #052659;
+    --primary-hover: #0c3976;
+    --primary-text: #ffffff;
+    --focus: #2768ac;
+    background: #ffffff;
+    color: #102b4c;
+    border-color: #cbd9e9;
+  }
+  html[data-theme="dark"] :is(.field input,.field select,.field textarea,.input,.phone-list .field textarea) {
+    background: #ffffff;
+    color: #102b4c;
+    border-color: #7da0ca;
+  }
+  html[data-theme="dark"] :is(input,textarea)::placeholder {color:#486280}
+  html[data-theme="dark"] .phone-list .parameter-group>summary {background:#eaf3fc;color:#102b4c}
+  html[data-theme="dark"] .phone-list .parameter-group .fold-progress {color:#486280}
+  html[data-theme="dark"] .phone-list .parameter-group .check-card {background:#ffffff;color:#102b4c}
+  html[data-theme="dark"] .phone-list .check-card.needs-attention {background:#fff4d9;color:#62440d}
+  html[data-theme="dark"] .notice.orange {background:#fff8ec;color:#8a652a;border-color:#f0dfbf}
+  html[data-theme="dark"] .field input:focus,
+  html[data-theme="dark"] .field textarea:focus,
+  html[data-theme="dark"] .field select:focus {outline-color:#2768ac}
 }
