@@ -70,7 +70,7 @@
     }).join('');
     return `<article class="check-card is-${escape(row.status || 'pending')} ${activeIssue ? 'needs-attention' : ''}" data-row="${id}">
       <h4 id="title-${id}"><span class="check-num">${index + 1}</span><span>${escape(label(row.assetName))}</span></h4>
-      <p class="asset-context">${escape(row.assetCode)} · ${escape(row.location)}</p>
+      <p class="asset-context">${escape(label(row.assetCode))} · ${escape(label(row.location))}</p>
       ${activeIssue ? `<p class="validation-hint" role="alert">${escape(issue.message)}</p>` : ''}
       <div class="status-buttons" role="group" aria-labelledby="${parameterId} title-${id}">${buttons}</div>
       <div class="field"><label for="note-${id}">Keterangan${row.status === 'fail' ? ' *' : ''}</label>

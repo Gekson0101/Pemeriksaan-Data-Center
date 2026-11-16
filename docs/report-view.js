@@ -42,7 +42,7 @@
   }
   function recordRows(row,number,category,print) {
     const objects=C.reportObjects(row);
-    const values=[row.assetCode||'—',label(row.assetName),row.location||'—',note(row)];
+    const values=[label(row.assetCode||'—'),label(row.assetName),label(row.location||'—'),note(row)];
     const parts=values.map((value,index)=>print?splitForPrint(value,[22,40,27,36][index]):[value]);
     const photos=row.evidence||[];
     const count=print?Math.max(...parts.map(part=>part.length),photos.length,1):1;
@@ -63,7 +63,7 @@
     const rows=session.rows||[],metrics=C.metrics(rows),groups=C.groupByCategory(rows);
     const photos=rows.reduce((count,row)=>count+(row.evidence?.length||0),0);
     const fields=[['Nomor laporan',session.number||'DRAF'],['Status',session.finalizedAt?'Final':'Draf'],
-      ['Hari / tanggal',date(session.date)],['Pusat data',session.site||'Belum diisi'],
+      ['Hari / tanggal',date(session.date)],['Pusat data',label(session.site||'Belum diisi')],
       ['Petugas',session.inspector||'Belum diisi'],['Sif',session.shift||'Umum'],
       ['Mulai pencatatan',date(session.createdAt)],['Laporan dikirim',date(session.finalizedAt)],
       ['Cakupan',`${C.groupByAsset(rows).length} aset · ${C.groupByParameter(rows).length} parameter · ${rows.length} penilaian`],['Foto bukti',`${photos} foto`]];
@@ -85,7 +85,7 @@
     return `<article class="report-preview structured-report">
       <header class="report-cover"><img class="report-logo" src="${e(root.DCIBranding.logoUrl)}" alt="Logo Pusdatik BSSN" width="96" height="96" loading="eager"><div class="report-heading"><div class="report-brand">PUSDATIK BSSN</div>
         <h2 class="report-title">FORMULIR MONITORING ${e((D.periods[session.period]||session.period).toUpperCase())} DATA CENTER</h2>
-        <p class="report-subtitle">${e(session.site||'Pusat data')} · ${e(date(session.date))}</p></div></header>
+        <p class="report-subtitle">${e(label(session.site||'Pusat data'))} · ${e(date(session.date))}</p></div></header>
       <dl class="report-metadata">${fields.map(([name,value])=>`<div><dt>${e(name)}</dt><dd>${e(value)}</dd></div>`).join('')}</dl>
       <div class="report-counts">${counts.map(([name,count,kind])=>`<span class="count-${kind}"><strong>${count}</strong> ${e(name)}</span>`).join('')}</div>
       ${tables}

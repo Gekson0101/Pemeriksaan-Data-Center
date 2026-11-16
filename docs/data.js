@@ -1,7 +1,7 @@
 (function(root) {
   'use strict';
   function formalLabel(value) {
-    return String(value??'')
+    return String(value??'').replace(/\s*\((?:demo|contoh)\)/gi,'').replace(/\bDEMO[- ]?/gi,'').trim()
       .replace(/menara pendingin/gi,'Cooling Tower')
       .replace(/\bmenara\b/gi,'Cooling Tower')
       .replace(/\bgenset\b/gi,'Generator Set')

@@ -109,7 +109,7 @@
     const logo=await root.DCIBranding.excelLogo();
     const letterhead=[['PUSDATIK BSSN',24,12],
       [`FORMULIR MONITORING ${period.toUpperCase()} DATA CENTER`,36,14],
-      [`${session.site||'Pusat data'} · ${dateText(session.date)}`,24,11]];
+      [`${D.formalLabel(session.site||'Pusat data')} · ${dateText(session.date)}`,24,11]];
     for(const [text,height,size] of letterhead) {
       const row=add(['','',text],height);
       sheet.mergeCells(row.number,3,row.number,7);
@@ -132,7 +132,7 @@
     });
     metadata('Nomor laporan',session.number||'DRAF','Status',session.finalizedAt?'Final':'Draf');
     metadata('Hari / tanggal',dateText(session.date),'Periode',period);
-    metadata('Petugas',session.inspector||'Belum diisi','Pusat data',session.site||'Belum diisi');
+    metadata('Petugas',session.inspector||'Belum diisi','Pusat data',D.formalLabel(session.site||'Belum diisi'));
     metadata('Mulai pencatatan',dateText(session.createdAt),'Laporan dikirim',dateText(session.finalizedAt));
     metadata('Cakupan',`${C.groupByAsset(rows).length} aset · ${C.groupByParameter(rows).length} parameter · ${rows.length} penilaian`,'Sif',session.shift||'Umum');
     metadata('Hasil pemeriksaan',`${metrics.pass} sesuai · ${metrics.fail} tidak sesuai`, 'Foto bukti',`${photoCount} foto`);
@@ -157,8 +157,8 @@
             if(record.target) notes.push(`Target tindak lanjut: ${record.target}`);
           }
           const objects=C.reportObjects(record);
-          const values=[number,record.assetCode||'—',D.formalLabel(record.assetName),
-            record.location||'—',
+          const values=[number,D.formalLabel(record.assetCode||'—'),D.formalLabel(record.assetName),
+            D.formalLabel(record.location||'—'),
             statuses[record.status]||'Belum dinilai',notes.filter(Boolean).join('\n')||'—'];
           const parts=values.map((value,index)=>textParts(value,Math.max(5,widths[index]-3)));
           const photos=record.evidence||[];

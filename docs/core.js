@@ -154,7 +154,7 @@
   }
   function completedInspection(reports, session) {
     if (!session?.date || !session.site?.trim()) return;
-    const siteKey = name => String(name || '').trim().replace(/\s+/g, ' ').toLowerCase();
+    const siteKey = name => String(name || '').trim().replace(/\s+/g, ' ').replace(/^Pusat Data Demo$/i, 'Pusat Data').toLowerCase();
     const site = siteKey(session.site);
     return reports.find(report => {
       if (report.period !== session.period || siteKey(report.site) !== site || !report.date) return false;
