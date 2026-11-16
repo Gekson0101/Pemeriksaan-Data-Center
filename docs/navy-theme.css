@@ -1,0 +1,131 @@
+/* DC Inspect UI palette. Screen-only so exported and printed reports keep their format. */
+@media screen {
+  :root,
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --navy-950: #021024;
+    --navy-800: #052659;
+    --blue-500: #5483b3;
+    --blue-300: #7da0ca;
+    --blue-100: #c1e8ff;
+    --ink: #102b4c;
+    --muted: #486280;
+    --paper: #f2f7fc;
+    --line: #cbd9e9;
+    --green: #052659; /* Existing action token, distinct from result colors. */
+    --light: #e5f1fc;
+    --surface: #ffffff;
+    --surface-soft: #eaf3fc;
+    --surface-hover: #dcecff;
+    --control-line: #7da0ca;
+    --primary-bg: #052659;
+    --primary-hover: #0c3976;
+    --primary-text: #ffffff;
+    --focus: #2768ac;
+    --shadow: 0 6px 24px #05265909;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --ink: #eef6ff;
+    --muted: #b0c9e4;
+    --paper: #021024;
+    --line: #2a4668;
+    --green: #c1e8ff;
+    --light: #102e51;
+    --surface: #081c36;
+    --surface-soft: #102e51;
+    --surface-hover: #173d65;
+    --control-line: #5483b3;
+    --primary-bg: #c1e8ff;
+    --primary-hover: #a8dafe;
+    --primary-text: #021024;
+    --focus: #7da0ca;
+    --shadow: 0 6px 24px #00000018;
+  }
+  html[data-theme] body {background: var(--paper); color: var(--ink)}
+  html[data-theme] .sidebar {background: #021024; color: #c1e8ff; border-color: #294869}
+  html[data-theme] .brand {color: #fff}
+  html[data-theme] .brand-mark {background: #c1e8ff; color: #052659; border-radius: 11px}
+  html[data-theme] .brand small, html[data-theme] .nav-label {color: #7da0ca}
+  html[data-theme] .nav-btn {color: #b8cfe8; border-radius: 10px}
+  html[data-theme] .nav-btn.active {background: #052659; color: #fff; box-shadow: inset 3px 0 #c1e8ff}
+  html[data-theme] .nav-btn:hover {background: #0c2e53; color: #fff}
+  html[data-theme] .sidebar-bottom .note {background: #052659; border-color: #294869; color: #c1e8ff}
+  html[data-theme] .sidebar-bottom .note strong {color: #fff}
+
+  html[data-theme] :is(.topbar,.stat,.period-card,.panel,.inspection-summary,.asset-group,.report-preview,.source-card,.history-report,.modal,.check-card,.phone-list .check-card,.phone-list .asset-group,.sticky-actions) {
+    background: var(--surface); color: var(--ink); border-color: var(--line);
+  }
+  html[data-theme] :is(.stat,.period-card,.panel,.source-card,.history-report,.report-preview) {border-radius: 14px; box-shadow: var(--shadow)}
+  html[data-theme] .stat-label svg {color: #5483b3}
+  html[data-theme] .stat strong {color: var(--ink)}
+  html[data-theme] .period-card .period-icon {background: var(--surface-soft); color: var(--green); border: 1px solid var(--line); border-radius: 12px}
+  html[data-theme] .period-card .count {color: var(--muted); border-color: var(--line)}
+  html[data-theme] .period-card .num {color: var(--muted)}
+  html[data-theme] :is(.mini-icon,.avatar,.check-num,.phone-list .check-num) {background: var(--surface-soft); color: var(--green); border-color: var(--line)}
+  html[data-theme] :is(.empty,th) {background: var(--surface-soft); color: var(--muted); border-color: var(--line)}
+  html[data-theme] .empty strong {color: var(--ink)}
+  html[data-theme] .empty svg {color: #5483b3}
+  html[data-theme] td {border-color: var(--line)}
+  html[data-theme] .badge:not(.green):not(.red):not(.orange) {background: var(--surface-soft); color: var(--muted); border-color: var(--line)}
+  html[data-theme] .badge.outline {background: var(--surface)}
+  html[data-theme] .progress {background: var(--surface-soft)}
+  html[data-theme] .progress>span {background: #5483b3}
+
+  html[data-theme] .btn:not(.danger):not(.photo-remove) {background: var(--surface); color: var(--ink); border-color: var(--control-line); border-radius: 10px}
+  html[data-theme] .btn:not(.danger):not(.photo-remove):hover {background: var(--surface-hover)}
+  html[data-theme] .btn.primary:not(.danger):not(.photo-remove) {background: var(--primary-bg); color: var(--primary-text); border-color: var(--primary-bg)}
+  html[data-theme] .btn.primary:not(.danger):not(.photo-remove):hover {background: var(--primary-hover); color: var(--primary-text); border-color: var(--primary-hover)}
+  html[data-theme] .btn.soft:not(.danger):not(.photo-remove) {background: var(--surface-soft); color: var(--green)}
+  html[data-theme] .btn.ghost:not(.danger):not(.photo-remove) {background: transparent; color: var(--muted); border-color: transparent}
+  html[data-theme] :is(.field input,.field select,.field textarea,.input,.phone-list .field textarea) {
+    background: var(--surface); color: var(--ink); border-color: var(--control-line); border-radius: 9px;
+  }
+  html[data-theme] :is(input,textarea)::placeholder {color: var(--muted); opacity: 1}
+  html[data-theme] :is(.field label,.phone-list .field label,#pick-count,.modal h2,.modal h3,.modal summary) {color: var(--ink)}
+  html[data-theme] :is(.caption,.small.muted,.field-help,.stat-label,.stat small,.list-row small,.history-report small,.asset-report-heading p,.report-subtitle,.summary-main small,.period-roster,.photo-field small,.fold-meta,.fold-progress) {color: var(--muted)}
+  html[data-theme] :is(button,a,input,textarea,select,summary):focus-visible,
+  html[data-theme] .phone-list .inspection-fold>summary:focus-visible {
+    outline: 3px solid var(--focus); outline-offset: 3px;
+  }
+  html[data-theme] :is(.field input,.field select,.field textarea,.input,.phone-list .field textarea):focus {outline-color: var(--focus)}
+
+  html[data-theme] .phone-list .inspection-fold>.category-heading,
+  html[data-theme] .category-heading {background: #052659; color: #fff; border: 1px solid #244c7d}
+  html[data-theme] .category-heading :is(.fold-meta,.fold-progress,p) {color: #c1e8ff}
+  html[data-theme] .phone-list .parameter-group>summary,
+  html[data-theme] .phone-list .asset-group>header {background: var(--surface-soft); color: var(--ink); border-color: var(--line)}
+  html[data-theme] .phone-list .asset-group>header p {color: var(--muted)}
+  html[data-theme] .category-parameters {border-color: var(--control-line)}
+  html[data-theme] .phone-list .parameter-group {border-color: var(--line)}
+  html[data-theme] .phone-list .parameter-group .check-card {background: var(--surface)}
+  html[data-theme] .phone-list .check-card.needs-attention {background: #fff4d9; color: #62440d}
+  html[data-theme] .phone-list .check-card.needs-attention :is(.asset-context,.field label) {color: #62440d}
+  html[data-theme] .photo-choices label {background: var(--surface-soft); color: var(--green); border-color: var(--control-line)}
+  html[data-theme] .photo-choices label:focus-within {outline-color: var(--focus)}
+
+  html[data-theme] .modal-backdrop {background: #021024aa}
+  html[data-theme] .modal {box-shadow: 0 24px 90px #02102455; border: 1px solid var(--line); border-radius: 18px}
+  html[data-theme] .close {background: var(--surface-soft); color: var(--ink)}
+  html[data-theme] :is(.modal-footer,#new-session .modal-footer) {background: var(--surface); color: var(--ink); border-color: var(--line)}
+  html[data-theme] [data-action="close-modal"] {background: var(--surface-soft); color: var(--ink)}
+  html[data-theme] .period-group {border-color: var(--line)}
+  html[data-theme] #toast {background: #052659; color: #fff; border: 1px solid #5483b3; box-shadow: 0 8px 30px #02102433}
+  html[data-theme] .theme-toggle {background: #052659; color: #c1e8ff; border: 1px solid #7da0ca; box-shadow: 0 4px 16px #02102426}
+  html[data-theme="dark"] .theme-toggle {background: #c1e8ff; color: #021024; border-color: #7da0ca}
+  html[data-theme] .notice:not(.orange) {background: var(--surface-soft); color: var(--ink); border-color: var(--line)}
+  html[data-theme] .hero {background: var(--surface-soft); border-color: var(--line)}
+  html[data-theme] .hero p {color: var(--muted)}
+
+  /* Report preview follows the UI; result green/red remain semantic. */
+  html[data-theme] .structured-report .report-cover, html[data-theme] .report-letterhead {border-color: #5483b3}
+  html[data-theme] :is(.report-brand,.eyebrow) {color: var(--green)}
+  html[data-theme] .structured-report .report-category-title {background: #052659; color: #fff}
+  html[data-theme] :is(.asset-report-heading,.report-metadata dt,.report-columns th,.report-stat-row>div) {background: var(--surface-soft); color: var(--ink)}
+  html[data-theme] .structured-report :is(th,td) {border-color: var(--line)}
+  @media (max-width:650px) {
+    html[data-theme] .nav-btn.active {box-shadow: inset 0 -3px #c1e8ff}
+  }
+}
