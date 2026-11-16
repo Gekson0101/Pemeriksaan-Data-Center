@@ -3,6 +3,40 @@
   const escape = window.DCICore.escape, label = window.DCIData.formalLabel;
   const answers = [['pass', 'Sesuai'], ['fail', 'Tidak sesuai']];
   const expanded = new Map();
+  const motions = new WeakMap();
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function stopMotion(section) {
+    const motion=motions.get(section);
+    if(motion){motion.animation.onfinish=null;motion.animation.cancel();motions.delete(section);}
+    section.style.removeProperty('height');section.style.removeProperty('overflow');
+  }
+  function setFold(section, open, animate=true) {
+    const start=section.getBoundingClientRect().height;
+    stopMotion(section);
+    expanded.set(section.dataset.foldKey,open);
+    if(!animate||reducedMotion.matches||!section.animate||!start){section.open=open;return;}
+    section.open=true;
+    const summary=section.querySelector(':scope > summary'),style=getComputedStyle(section);
+    const border=parseFloat(style.borderTopWidth)+parseFloat(style.borderBottomWidth);
+    const end=open?section.getBoundingClientRect().height:summary.getBoundingClientRect().height+border;
+    section.style.overflow='hidden';
+    const animation=section.animate([{height:start+'px'},{height:end+'px'}],{duration:240,easing:'cubic-bezier(.2,.7,.2,1)'});
+    motions.set(section,{animation,open});
+    animation.onfinish=()=>{section.open=open;stopMotion(section);};
+  }
+  document.addEventListener('click',event=>{
+    const summary=event.target.closest('summary');
+    const section=summary?.parentElement;
+    if(!section?.matches('details[data-fold-key]'))return;
+    if(event.target.closest('button,a,input,select,textarea'))return;
+    event.preventDefault();
+    setFold(section,!(motions.get(section)?.open??section.open));
+  });
+  reducedMotion.addEventListener('change',()=>{
+    if(reducedMotion.matches)document.querySelectorAll('details[data-fold-key]').forEach(section=>{
+      const motion=motions.get(section);if(motion)setFold(section,motion.open,false);
+    });
+  });
   const arrow = '<span class="fold-arrow" aria-hidden="true">›</span>';
   function openAttribute(key, initial, hasIssue) {
     return (hasIssue || (expanded.has(key) ? expanded.get(key) : initial)) ? 'open' : '';
@@ -16,15 +50,14 @@
   document.addEventListener('toggle', event => {
     const section = event.target;
     if (section.matches?.('details[data-fold-key]') && section.isConnected) {
-      expanded.set(section.dataset.foldKey, section.open);
+      expanded.set(section.dataset.foldKey, motions.get(section)?.open??section.open);
     }
   }, true);
   document.addEventListener('click', event => {
     const control = event.target.closest('[data-fold-all]');
     if (!control) return;
     document.querySelectorAll('#checklist details[data-fold-key]').forEach(section => {
-      section.open = control.dataset.foldAll === 'open';
-      expanded.set(section.dataset.foldKey, section.open);
+      setFold(section,control.dataset.foldAll === 'open',false);
     });
   });
 
