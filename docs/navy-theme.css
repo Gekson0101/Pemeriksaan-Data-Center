@@ -176,10 +176,10 @@
     display:block;
     flex-shrink:0;
     object-fit:cover;
-    background:#ffffff;
-    border:1px solid #cbd9e9;
-    border-radius:50%;
-    padding:2px;
+    background:transparent;
+    border:0;
+    border-radius:0;
+    padding:0;
   }
   html[data-theme] .brand-logo {width:46px;height:46px}
   html[data-theme] .topbar-logo {width:36px;height:36px}
@@ -227,10 +227,11 @@ html:root .structured-report .report-logo {
   display:block;
   width:96px;
   height:96px;
-  padding:4px;
+  padding:0;
   object-fit:cover;
-  background:#ffffff;
-  border-radius:10px;
+  background:transparent;
+  border:0;
+  border-radius:0;
   margin:auto;
 }
 html:root .structured-report .report-heading {min-width:0}
@@ -259,7 +260,7 @@ html:root .structured-report .result-label.result-fail {background:#ac333c;color
 @media print {
   html:root .structured-report {color-scheme:light}
   html:root .structured-report .report-cover {padding:8pt}
-  html:root .structured-report .report-logo {width:22mm;height:22mm;border-radius:2mm}
+  html:root .structured-report .report-logo {width:22mm;height:22mm}
   html:root .structured-report,html:root .structured-report * {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;

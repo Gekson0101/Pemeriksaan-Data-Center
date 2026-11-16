@@ -119,6 +119,9 @@
       cell.alignment={vertical:'middle',horizontal:'center',wrapText:true};
     }
     sheet.mergeCells('A1:B3');
+    // Let the transparent logo sit directly on the continuous navy letterhead.
+    sheet.getCell('A1').fill={type:'pattern',pattern:'solid',fgColor:{argb:colors.navy}};
+    for(let row=1;row<=3;row++)for(let column=1;column<=7;column++)sheet.getRow(row).getCell(column).border={};
     const logoId=workbook.addImage({base64:logo.base64,extension:logo.extension});
     // Keep the original transparent canvas and aspect ratio; do not redraw the logo.
     const logoWidth=160,logoHeight=logoWidth*logo.height/logo.width;
