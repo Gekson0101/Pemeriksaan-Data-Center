@@ -1,4 +1,4 @@
-/* DC Inspect UI palette. Screen-only so exported and printed reports keep their format. */
+/* DC Inspect UI palette, followed by the shared screen and print report palette. */
 @media screen {
   :root,
   :root[data-theme="light"] {
@@ -119,12 +119,9 @@
   html[data-theme] .hero {background: var(--surface-soft); border-color: var(--line)}
   html[data-theme] .hero p {color: var(--muted)}
 
-  /* Report preview follows the UI; result green/red remain semantic. */
-  html[data-theme] .structured-report .report-cover, html[data-theme] .report-letterhead {border-color: #5483b3}
+  html[data-theme] .report-letterhead {border-color: #5483b3}
   html[data-theme] :is(.report-brand,.eyebrow) {color: var(--green)}
-  html[data-theme] .structured-report .report-category-title {background: #052659; color: #fff}
-  html[data-theme] :is(.asset-report-heading,.report-metadata dt,.report-columns th,.report-stat-row>div) {background: var(--surface-soft); color: var(--ink)}
-  html[data-theme] .structured-report :is(th,td) {border-color: var(--line)}
+  html[data-theme] .report-stat-row>div {background: var(--surface-soft); color: var(--ink)}
   @media (max-width:650px) {
     html[data-theme] .nav-btn.active {box-shadow: inset 0 -3px #c1e8ff}
     html[data-theme] .page-head .eyebrow {display:block;font-size:11px;line-height:1.5}
@@ -163,4 +160,47 @@
   html[data-theme="dark"] .field input:focus,
   html[data-theme="dark"] .field textarea:focus,
   html[data-theme="dark"] .field select:focus {outline-color:#2768ac}
+}
+
+/* Fixed report colors match excel-report.js in both display modes and PDF. */
+html:root .structured-report {
+  --ink: #102b4c;
+  --muted: #486280;
+  --line: #cbd9e9;
+  --report-navy: #052659;
+  --report-light: #eaf3fc;
+  background: #ffffff;
+  color: var(--ink);
+}
+html:root .structured-report .report-cover {
+  background: var(--report-navy);
+  color: #ffffff;
+  border-color: var(--report-navy);
+  padding: 12px;
+}
+html:root .structured-report :is(.report-brand,.report-title) {color:#ffffff}
+html:root .structured-report .report-subtitle {color:#c1e8ff}
+html:root .structured-report :is(.report-category-title,.report-columns th) {
+  background: var(--report-navy);
+  color: #ffffff;
+}
+html:root .structured-report :is(.asset-report-heading,.report-metadata dt) {
+  background: var(--report-light);
+  color: var(--ink);
+}
+html:root .structured-report .asset-report-heading :is(h3,p) {color:var(--ink)}
+html:root .structured-report :is(.report-metadata dd,.inspection-result td) {
+  background: #ffffff;
+  color: var(--ink);
+}
+html:root .structured-report :is(th,td,.asset-report,.asset-report-heading,.report-metadata,.report-metadata>div,.signature) {border-color:var(--line)}
+html:root .structured-report .result-label.result-pass {background:#17653e;color:#ffffff;border-color:#17653e}
+html:root .structured-report .result-label.result-fail {background:#ac333c;color:#ffffff;border-color:#ac333c}
+@media print {
+  html:root .structured-report {color-scheme:light}
+  html:root .structured-report .report-cover {padding:8pt}
+  html:root .structured-report,html:root .structured-report * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 }

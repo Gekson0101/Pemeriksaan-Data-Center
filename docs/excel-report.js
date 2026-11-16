@@ -1,7 +1,8 @@
 (function(root) {
   'use strict';
   const widths=[6,19,34,25,17,34,28];
-  const colors={green:'123C36',light:'E7F0EB',line:'CBD9D2',ink:'18342E',pass:'17653E',fail:'AC333C'};
+  // Match the fixed report palette in navy-theme.css, independent of display mode.
+  const colors={navy:'052659',light:'EAF3FC',line:'CBD9E9',ink:'102B4C',pass:'17653E',fail:'AC333C'};
   const statuses={pass:'Sesuai',fail:'Tidak sesuai',na:'Tidak berlaku',deferred:'Tertunda','':'Belum dinilai'};
   let libraryPromise;
 
@@ -85,15 +86,16 @@
       for(let column=1;column<=7;column++) {
         const cell=row.getCell(column);
         cell.font={name:'Calibri',size:11,color:{argb:colors.ink}};
+        cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:'FFFFFF'}};
         cell.alignment={vertical:'top',wrapText:true};
         cell.border={top:border,left:border,bottom:border,right:border};
       }
       return row;
     }
-    function band(text,fill=colors.green,height=30) {
+    function band(text,fill=colors.navy,height=30) {
       const row=add([text],height);sheet.mergeCells(row.number,1,row.number,7);
       const cell=row.getCell(1);cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:fill}};
-      cell.font={name:'Calibri',size:12,bold:true,color:{argb:fill===colors.green?'FFFFFF':colors.ink}};
+      cell.font={name:'Calibri',size:12,bold:true,color:{argb:fill===colors.navy?'FFFFFF':colors.ink}};
       cell.alignment={vertical:'middle',wrapText:true};
       return row;
     }
@@ -104,7 +106,7 @@
     }
     const rows=session.rows||[],metrics=C.metrics(rows);
     const photoCount=rows.reduce((total,row)=>total+(row.evidence?.length||0),0);
-    const title=band(`FORMULIR MONITORING ${period.toUpperCase()} DATA CENTER`,colors.green,36);
+    const title=band(`FORMULIR MONITORING ${period.toUpperCase()} DATA CENTER`,colors.navy,36);
     title.getCell(1).alignment={vertical:"middle",horizontal:"center",wrapText:true};
     metadata('Nomor laporan',session.number||'DRAF','Status',session.finalizedAt?'Final':'Draf');
     metadata('Hari / tanggal',dateText(session.date),'Periode',period);
@@ -115,11 +117,11 @@
     metadata('Isian lainnya',`${metrics.pending} belum dinilai · ${metrics.na} tidak berlaku · ${metrics.deferred} tertunda`,'Pemeriksaan',period);
     band('TABEL CHECKLIST PEMERIKSAAN',colors.light,28);
     const headers=add(['No','Kode Aset','Nama Aset','Lokasi','Hasil','Keterangan Petugas / Hasil Ukur','Foto Bukti'],34);
-    headers.eachCell(cell=>{cell.font={name:'Calibri',size:11,bold:true,color:{argb:'FFFFFF'}};cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:colors.green}};cell.alignment={vertical:'middle',horizontal:'center',wrapText:true};});
+    headers.eachCell(cell=>{cell.font={name:'Calibri',size:11,bold:true,color:{argb:'FFFFFF'}};cell.fill={type:'pattern',pattern:'solid',fgColor:{argb:colors.navy}};cell.alignment={vertical:'middle',horizontal:'center',wrapText:true};});
     sheet.pageSetup.printTitlesRow='9:10';
     let number=0;
     for (const category of C.groupByCategory(rows)) {
-      band(D.formalLabel(category.name),colors.green);
+      band(D.formalLabel(category.name),colors.navy);
       for (const assetRows of C.groupByParameter(category.rows)) {
         const asset=assetRows[0];
         band(D.formalLabel(asset.title),colors.light,Math.max(38,Math.ceil(asset.title.length/110)*16+12));
